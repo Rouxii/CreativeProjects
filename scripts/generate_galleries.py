@@ -9,10 +9,22 @@ GALLERY_TEMPLATE = """
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ project_name|title }} Gallery</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Navigation -->
+    <nav>
+        <ul class="nav-links">
+            <li><a href="./index.html#about">Home</a></li>
+            <li><a href="./index.html#cosplay">Cosplay</a></li>
+            <li><a href="#miniatures">Miniatures</a></li>
+            <!-- <li><a href="#pottery">Pottery</a></li>
+            <li><a href="#espresso">Espresso</a></li> -->
+        </ul>
+    </nav>
     <h1>{{ project_name|title }} Gallery</h1>
     <div class="gallery">
     {% for img in images %}
@@ -22,6 +34,13 @@ GALLERY_TEMPLATE = """
     {% endfor %}
     </div>
     <p><a href="index.html">Back to main page</a></p>
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <p>© 2025 a Rui Makes Stuff production</p>
+            <a href="https://www.instagram.com/ruimakesstuff/" target="_blank" class="instagram-link">insta</a>
+        </div>
+    </footer>
 </body>
 </html>
 """
