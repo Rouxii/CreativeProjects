@@ -1,0 +1,27 @@
+{
+  "cosplay": {
+    "header": "Cosplay Foam Craft",
+    "description": "Foam crafting some stuff",
+    "nav_title": "Cosplay"
+  },
+  "miniatures": {
+    "header": "Miniature Painting",
+    "description": "Bringing tiny figures to life with detailed painting techniques",
+    "nav_title": "Miniatures"
+  },
+  "bts": {
+    "header": "Behind the Scenes",
+    "description": "Build progress pictures for some of my stuff",
+    "nav_title": "BTS"
+  },
+  "coming": {
+    "header": "Coming Soon",
+    "description": "Stuff I'm currently working on and haven't finished yet",
+    "nav_title": "In Progress"
+  },
+  "ERROR": {
+    "header": "**ERROR**",
+    "description": "---ERROR---",
+    "nav_title": "ERROR"
+  }
+}

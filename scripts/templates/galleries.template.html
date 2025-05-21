@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandman_inprogress Gallery</title>
+    <title>{{ project_name|title }} Gallery</title>
     <link rel="stylesheet" href="../../styles.css">
 </head>
 
@@ -17,15 +17,15 @@
             <li><a href="../../#miniatures">Miniatures</a></li>
         </ul>
     </nav>
-    <h1>Sandman_inprogress Gallery</h1>
+    <h1>{{ project_name|title }} Gallery</h1>
     <div class="gallery">
-        
-        <a href="../images/sandman_inprogress/sandman_helm (5).jpeg">
+        {% for img in images %}
+        <a href="{{ img }}">
             <div class="gallery-item">
-                <img src="../images/sandman_inprogress/sandman_helm (5).jpeg" alt="sandman_inprogress image" class="gallery-img">
+                <img src="{{ img }}" alt="{{ project_name }} image" class="gallery-img">
             </div>
         </a>
-        
+        {% endfor %}
     </div>
     <p><a href="index.html">Back to main page</a></p>
     <!-- Footer -->
