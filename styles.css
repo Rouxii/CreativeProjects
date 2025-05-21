@@ -103,6 +103,10 @@ section {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: white;
     transition: transform 0.3s, box-shadow 0.3s;
+    aspect-ratio: 4 / 3; /* Add this line */
+    display: flex;        /* Add this line */
+    align-items: center;  /* Add this line */
+    justify-content: center; /* Add this line */
 }
 
 .gallery-item:hover {
@@ -111,10 +115,11 @@ section {
 }
 
 .gallery-img {
-    height: 250px;
+    height: 100%;
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
+    background: #eee;
 }
 
 .gallery-content {
@@ -180,6 +185,10 @@ footer {
     }
     
     .gallery-img {
-        height: 200px;
+        height: 250px;
+        width: 100%;
+        object-fit: contain;
+        display: block;
+        background: #eee;
     }
 }
