@@ -3,11 +3,11 @@ import json
 import datetime
 from jinja2 import Template
 
-PROJECTS_ROOT = './galleries/images'
-GALLERY_PAGE_OUTPUT_DIR = './galleries/pages'
+PROJECTS_ROOT = './projects/images'
+GALLERY_PAGE_OUTPUT_DIR = './projects/pages'
 GALLERY_TEMPLATE_PATH = "./scripts/templates/galleries.template.html"
 INDEX_TEMPLATE_PATH = "./scripts/templates/index.template.html"
-SECTION_MAP_PATH = './galleries/section_map.json'
+SECTION_MAP_PATH = './projects/section_map.json'
 
 JSON_KEY_ROOT = 'KEY/key.json'
 IMG_KEY_ROOT = 'KEY/key.jpg'

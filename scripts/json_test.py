@@ -1,6 +1,6 @@
 import json
 
-with open('../galleries/section_map.json') as f:
+with open('../projects/section_map.json') as f:
     section_map = json.load(f)
 
 # Accessing values:
