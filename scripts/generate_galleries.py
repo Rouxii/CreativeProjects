@@ -30,9 +30,11 @@ GALLERY_TEMPLATE = """
     <h1>{{ project_name|title }} Gallery</h1>
     <div class="gallery">
     {% for img in images %}
-        <div class="gallery-item">
-            <img src="{{ img }}" alt="{{ project_name }} image" class="gallery-img">
-        </div>
+        <a href="{{ img }}">
+            <div class="gallery-item">
+                <img src="{{ img }}" alt="{{ project_name }} image" class="gallery-img">
+            </div>
+        </a>
     {% endfor %}
     </div>
     <p><a href="index.html">Back to main page</a></p>
