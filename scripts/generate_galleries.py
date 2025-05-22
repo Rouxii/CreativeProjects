@@ -42,6 +42,9 @@ def read_section_meta(section_map, project, proj_path):
             "title": meta.get("title", ""),
             "description": meta.get("description", "")
         }
+    else:
+        log("!!! FATAL ERROR!!! CANNOT FIND key.json OR key.jpg !!!!")
+        
     return section_info, entry
 
 def parse_projects(section_map, projects_root):
