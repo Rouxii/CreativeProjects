@@ -11,6 +11,7 @@ SECTION_MAP_PATH = './projects/section_map.json'
 
 JSON_KEY_ROOT = 'KEY/key.json'
 IMG_KEY_ROOT = 'KEY/key.jpg'
+
 LOG_FILE = './scripts/logs/generate_galleries.log'
 
 def log(message):
@@ -43,13 +44,13 @@ def read_section_meta(section_map, project, proj_path):
         }
     return section_info, entry
 
-def parse_projects(section_map, images_root):
+def parse_projects(section_map, projects_root):
     projects = []
     sections = {}
-    log(f"parse_projects\nSearching for projects in {images_root}...")
+    log(f"parse_projects\nSearching for projects in {projects_root}...")
     log("--Contents: " + (str(os.listdir(PROJECTS_ROOT)) if os.path.exists(PROJECTS_ROOT) else "*** Not found"))
-    for project in os.listdir(images_root):
-        proj_path = os.path.join(images_root, project)
+    for project in os.listdir(projects_root):
+        proj_path = os.path.join(projects_root, project)
         
         if not os.path.isdir(proj_path):
             continue  # Skip files like .DS_Store

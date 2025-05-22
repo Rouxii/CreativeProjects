@@ -162,6 +162,38 @@ footer {
     margin-bottom: 1rem;
 }
 
+.footer-links {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 1.5rem;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.footer-links li {
+    margin: 0;
+}
+
+.footer-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.footer-links a:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.footer-links img {
+    width: 28px;
+    height: 28px;
+    display: block;
+}
+
 /* Responsive design */
 @media screen and (max-width: 768px) {
     .gallery {
