@@ -121,20 +121,21 @@ def main():
     with open(LOG_FILE, 'w') as logf:
         logf.write(f"Gallery generation log    [{timestamp}]\n")
         
+    # load in section map from json file:
     with open(SECTION_MAP_PATH) as file:
         section_map = json.load(file)
 
     projects, sections = parse_projects(section_map, PROJECTS_ROOT)
-    
-    # generate the galery pages:
-    with open(GALLERY_TEMPLATE_PATH) as file:
-      gallery_template = Template(file.read())
-    generate_gallery_pages(gallery_template, projects, section_map)
 
     #generate the main index page
     with open(INDEX_TEMPLATE_PATH) as file:
         index_tempate = Template(file.read())
     generate_main_index(index_tempate, sections)
+    
+    # generate the galery pages:
+    with open(GALLERY_TEMPLATE_PATH) as file:
+      gallery_template = Template(file.read())
+    generate_gallery_pages(gallery_template, projects, section_map)
 
     print(f"Generated log file: {LOG_FILE}")
 
