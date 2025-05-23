@@ -67,7 +67,7 @@ def parse_projects(section_map, projects_root):
                 "projects": []
             }
         sections[section_info["section"]]["projects"].append(project_entry)
-        projects.append((project, proj_path))
+        projects.append((project, proj_path, project_entry["title"]))
     return projects, sections
 
 def get_images(section_map, project_path):
@@ -82,10 +82,10 @@ def get_images(section_map, project_path):
 def generate_gallery_pages(template, projects, section_map):
     log(f"generate_gallery_pages\n...Found {len(projects)} projects.")
     log(projects)
-    for project, proj_path in projects:
+    for project, proj_path, title in projects:
         images = get_images(section_map, proj_path)
         log(f"...Found {len(images)} images in {project}.")
-        html = template.render(project_name=project, images=images)
+        html = template.render(project_name=title, images=images)
         output_file = os.path.join(GALLERY_PAGE_OUTPUT_DIR, f"{project}.html")
         with open(output_file, 'w') as file:
             file.write(html)
@@ -129,7 +129,7 @@ def main():
     # generate the galery pages:
     with open(GALLERY_TEMPLATE_PATH) as file:
       gallery_template = Template(file.read())
-    generate_gallery_pages(gallery_template, projects, section_map)        
+    generate_gallery_pages(gallery_template, projects, section_map)
 
     #generate the main index page
     with open(INDEX_TEMPLATE_PATH) as file:

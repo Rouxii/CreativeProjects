@@ -114,6 +114,12 @@ section {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
+.gallery-link,
+.gallery a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .gallery-img {
     height: 100%;
     width: 100%;
@@ -135,6 +141,11 @@ section {
 .gallery-content p {
     color: #7f8c8d;
     font-size: 0.95rem;
+}
+
+.gallery-title {
+    text-align: center;
+    margin: 2rem 0 1.5rem 0;
 }
 
 /* About section */
