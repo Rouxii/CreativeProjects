@@ -235,3 +235,16 @@ footer {
         background: #eee;
     }
 }
+
+.gallery-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img-title {
+    margin-top: 0.5rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #555;
+}

@@ -2,6 +2,8 @@ import os
 import json
 import datetime
 from jinja2 import Template
+from PIL import Image
+from PIL.ExifTags import TAGS
 
 PROJECTS_ROOT = './projects/images'
 GALLERY_PAGE_OUTPUT_DIR = './projects/pages'
@@ -13,6 +15,24 @@ JSON_KEY_ROOT = 'KEY/key.json'
 IMG_KEY_ROOT = 'KEY/key.jpg'
 
 LOG_FILE = './scripts/logs/generate_galleries.log'
+
+def get_exif_title(img_path):
+    try:
+        with Image.open(img_path) as img:
+            exif_data = img.getexif()
+            for tag_id, value in exif_data.items():
+                tag = TAGS.get(tag_id, tag_id)
+                if tag in ("ImageDescription", "XPTitle"):
+                    # XPTitle is bytes, decode if needed
+                    if isinstance(value, bytes):
+                        try:
+                            value = value.decode('utf-16').rstrip('\x00')
+                        except Exception:
+                            value = value.decode(errors='ignore')
+                    return str(value)
+    except Exception as e:
+        log(f"EXIF read error for {img_path}: {e}")
+    return None
 
 def log(message):
     with open(LOG_FILE, 'a') as logfile:
@@ -70,13 +90,25 @@ def parse_projects(section_map, projects_root):
         projects.append((project, proj_path, project_entry["title"]))
     return projects, sections
 
-def get_images(section_map, project_path):
+""" def get_images(section_map, project_path):
     log(f"Getting images from {project_path}...")
     return [
         os.path.relpath(os.path.join(project_path, f), GALLERY_PAGE_OUTPUT_DIR)
         for f in sorted(os.listdir(project_path))
         if os.path.isfile(os.path.join(project_path, f)) and f.lower().endswith(('.jpg', '.jpeg', '.png', '.gif'))
     ]
+ """
+ 
+def get_images(section_map, project_path):
+    log(f"Getting images from {project_path}...")
+    images = []
+    for file_name in sorted(os.listdir(project_path)):
+        abs_path = os.path.join(project_path, file_name)
+        if os.path.isfile(abs_path) and file_name.lower().endswith(('.jpg', '.jpeg', '.png', '.gif')):
+            rel_path = os.path.relpath(abs_path, GALLERY_PAGE_OUTPUT_DIR)
+            exif_title = get_exif_title(abs_path)
+            images.append({"path": rel_path, "exif_title": exif_title})
+    return images
 
 # generate individual gallery image pages
 def generate_gallery_pages(template, projects, section_map):

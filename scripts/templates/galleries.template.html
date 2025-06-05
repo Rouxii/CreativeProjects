@@ -25,9 +25,12 @@
     <h1 class="gallery-title">{{ project_name|title }} Gallery</h1>
     <div class="gallery">
         {% for img in images %}
-        <a href="{{ img }}">
+        <a href="{{ img.path }}">
             <div class="gallery-item">
-                <img src="{{ img }}" alt="{{ project_name }} image" class="gallery-img">
+                <img src="{{ img.path }}" alt="{{ project_name }} image" class="gallery-img">
+                {% if img.exif_title %}
+                    <div class="img-title">{{ img.exif_title }}</div>
+                {% endif %}
             </div>
         </a>
         {% endfor %}
