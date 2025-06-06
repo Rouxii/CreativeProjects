@@ -112,7 +112,7 @@ def generate_gallery_pages(template, projects, section_map):
     for project, proj_path, title in projects:
         images, warnings = get_images(section_map, proj_path)
         log(f"...Found {len(images)} images in {project}  {warnings} warnings.")
-        html = template.render(project_name=title, images=images)
+        html = template.render(ctx_project_name=title, ctx_images=images)
         output_file = os.path.join(GALLERY_PAGE_OUTPUT_DIR, f"{project}.html")
         with open(output_file, 'w') as file:
             file.write(html)
@@ -137,7 +137,7 @@ def generate_main_index(template, sections):
     for key, value in sections_for_template.items():
         log(f"-- {key}: {value}")
     
-    html = template.render(sections = sections_for_template)
+    html = template.render(ctx_sections = sections_for_template)
     with open("index.html", "w") as file:
         file.write(html)
     log("Generated html: index.html")

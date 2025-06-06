@@ -18,7 +18,7 @@
     <nav>
         <ul class="nav-links">
             <li><a href="./index.html#home">Home</a></li>
-            {% for section_key, section in sections.items() %}
+            {% for section_key, section in ctx_sections.items() %}
             <li><a href="#{{ section_key }}">{{ section.nav_title }}</a></li>
             {% endfor %}
         </ul>
@@ -34,7 +34,7 @@
     </section> 
     -->
 
-    {% for section_key, section in sections.items() %}
+    {% for section_key, section in ctx_sections.items() %}
     <section id="{{ section_key }}">
         <div class="container">
             <div class="section-header">

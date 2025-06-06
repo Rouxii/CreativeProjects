@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ project_name|title }} Gallery</title>
+    <title>{{ ctx_project_name|title }} Gallery</title>
     <link rel="stylesheet" href="../../styles.css">
 </head>
 
@@ -22,12 +22,12 @@
             <li><a href="../../index.html#home">Home</a></li>
         </ul>
     </nav>
-    <h1 class="gallery-title">{{ project_name|title }} Gallery</h1>
+    <h1 class="gallery-title">{{ ctx_project_name|title }} Gallery</h1>
     <div class="gallery">
-        {% for img in images %}
+        {% for img in ctx_images %}
         <a href="{{ img.path }}">
             <div class="gallery-item">
-                <img src="{{ img.path }}" alt="{{ project_name }} image" class="gallery-img">
+                <img src="{{ img.path }}" alt="{{ ctx_project_name }} image" class="gallery-img">
                 {% if img.exif_title %}
                     <div class="img-title">{{ img.exif_title }}</div>
                 {% endif %}
