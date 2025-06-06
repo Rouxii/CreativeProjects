@@ -16,13 +16,13 @@ IMG_KEY_ROOT = 'KEY/key.jpg'
 
 LOG_FILE = './scripts/logs/generate_galleries.log'
 
-def get_exif_title(img_path):
+def get_exif_caption(img_path):
     try:
         with Image.open(img_path) as img:
             exif_data = img.getexif()
             for tag_id, value in exif_data.items():
                 tag = TAGS.get(tag_id, tag_id)
-                if tag in ("ImageDescription", "XPTitle"):
+                if tag == "ImageDescription":
                     # XPTitle is bytes, decode if needed
                     if isinstance(value, bytes):
                         try:
@@ -90,34 +90,28 @@ def parse_projects(section_map, projects_root):
         projects.append((project, proj_path, project_entry["title"]))
     return projects, sections
 
-""" def get_images(section_map, project_path):
-    log(f"Getting images from {project_path}...")
-    return [
-        os.path.relpath(os.path.join(project_path, f), GALLERY_PAGE_OUTPUT_DIR)
-        for f in sorted(os.listdir(project_path))
-        if os.path.isfile(os.path.join(project_path, f)) and f.lower().endswith(('.jpg', '.jpeg', '.png', '.gif'))
-    ]
- """
- 
 def get_images(section_map, project_path):
     log(f"Getting images from {project_path}...")
     images = []
+    warnings = 0
     for file_name in sorted(os.listdir(project_path)):
         abs_path = os.path.join(project_path, file_name)
         if os.path.isfile(abs_path) and file_name.lower().endswith(('.jpg', '.jpeg', '.png', '.gif')):
             rel_path = os.path.relpath(abs_path, GALLERY_PAGE_OUTPUT_DIR)
-            exif_title = get_exif_title(abs_path)
-            if not exif_title: log(f"... Image: '{file_name}'  has empty Title EXIF")
-            images.append({"path": rel_path, "exif_title": exif_title})
-    return images
+            exif_caption = get_exif_caption(abs_path)
+            if not exif_caption:
+                log(f"... Image: '{file_name}' !! empty CAPTION EXIF")
+                warnings += 1
+            images.append({"path": rel_path, "exif_title": exif_caption})
+    return images, warnings
 
 # generate individual gallery image pages
 def generate_gallery_pages(template, projects, section_map):
     log(f"generate_gallery_pages\n...Found {len(projects)} projects.")
     log(projects)
     for project, proj_path, title in projects:
-        images = get_images(section_map, proj_path)
-        log(f"...Found {len(images)} images in {project}.")
+        images, warnings = get_images(section_map, proj_path)
+        log(f"...Found {len(images)} images in {project}  {warnings} warnings.")
         html = template.render(project_name=title, images=images)
         output_file = os.path.join(GALLERY_PAGE_OUTPUT_DIR, f"{project}.html")
         with open(output_file, 'w') as file:
@@ -152,7 +146,7 @@ def main():
     # Clear previous log
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(LOG_FILE, 'w') as logf:
-        logf.write(f"Gallery generation log    [{timestamp}]\n")
+        logf.write(f"Gallery generation Started:    [{timestamp}]\n")
         
     # load in section map from json file:
     with open(SECTION_MAP_PATH) as file:
@@ -171,7 +165,8 @@ def main():
     generate_gallery_pages(gallery_template, projects, section_map)
 
     print(f"Generated log file: {LOG_FILE}")
-
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log(f"FINISHED: {timestamp}")
     
 if __name__ == '__main__':
     main()
