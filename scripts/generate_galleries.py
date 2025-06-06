@@ -107,6 +107,7 @@ def get_images(section_map, project_path):
         if os.path.isfile(abs_path) and file_name.lower().endswith(('.jpg', '.jpeg', '.png', '.gif')):
             rel_path = os.path.relpath(abs_path, GALLERY_PAGE_OUTPUT_DIR)
             exif_title = get_exif_title(abs_path)
+            if not exif_title: log(f"... Image: '{file_name}'  has empty Title EXIF")
             images.append({"path": rel_path, "exif_title": exif_title})
     return images
 
